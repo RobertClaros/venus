@@ -1,0 +1,24 @@
+# ~/Documents/venus/venus/docker-compose.yml
+version: "3.8"
+
+services:
+  postgres-venus:
+    image: postgres:14-alpine
+    container_name: venus-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: venus_user
+      POSTGRES_PASSWORD: venus_password
+      POSTGRES_DB: venus_multitenant_db
+    volumes:
+      - postgres_venus_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U venus_user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_venus_data:
