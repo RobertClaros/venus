@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "migrate:dev": "dotenv -e .env.local -- prisma migrate dev --name init --schema ./prisma/schema.prisma",
+    "migrate:casaos": "dotenv -e ../../apps/api/.env.casaos -- prisma migrate dev --name init --schema ./prisma/schema.prisma",
+    "reset:dev": "dotenv -e .env.local -- prisma migrate reset --force"
   }
 }
